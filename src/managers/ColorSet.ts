@@ -1,8 +1,10 @@
 
 export class ColorSet {
-  colors: ColorStr[] = [];
+  private _colors: ColorStr[] = [];
 
-  add(color: ColorStr) { return this.colors.push(color) - 1; }
-  get(index: number) { return this.colors[index]; }
-  set(data: ColorStr[]) { this.colors.push(...data); }
+  add(color: ColorStr) { return this._colors.push(color) - 1; }
+  get(index: number) { return this._colors[index]; }
+  set(data: ColorStr[]) { this._colors.push(...data); }
+  clear() { this._colors = []; }
+  getColors() { return this._colors; }
 }

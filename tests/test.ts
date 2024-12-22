@@ -2,6 +2,7 @@ import { PixelManager } from '@/managers';
 
 
 const mapEditor = PixelManager.global
+  .addColor('#FFFFFF00')
   .addColor('#000000')
   .addColor('#FFFFFF')
   .addColor('#FF0000')

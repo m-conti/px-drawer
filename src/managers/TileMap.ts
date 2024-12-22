@@ -40,11 +40,14 @@ export class TileMap {
   setMap(map: number[][]) {
     if (!this.context) throw new Error('No context set');
 
-    map.forEach((row, y) => row.forEach((colorIndex, x) => {
-      this.context!.fillStyle = this.colorSet.get(colorIndex);
-      this.context!.fillRect(x * this.pixelRatio, y * this.pixelRatio, this.pixelRatio, this.pixelRatio);
-    }));
+    map.forEach((row, y) => row.forEach((colorIndex, x) => { this.setColor(x, y, colorIndex); }));
 
+    return this;
+  }
+
+  setColor(x: number, y: number, color: number) {
+    this.context!.fillStyle = this.colorSet.get(color);
+    this.context!.fillRect(x * this.pixelRatio, y * this.pixelRatio, this.pixelRatio, this.pixelRatio);
     return this;
   }
 
