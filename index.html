@@ -7,15 +7,21 @@
     <title>PixelDrawer</title>
   </head>
   <body>
-    <canvas id="canvas-editor"></canvas>
+    <div class="container">
+      <canvas id="canvas-editor"></canvas>
+      <canvas id="canvas-display"></canvas>
+      <canvas id="canvas-display-with-saved-color"></canvas>
+    </div>
     <script type="module" src="./src/main.ts"></script>
     <script type="module" src="./tests/test.ts"></script>
     <style>
-      body {
-        background-color: #202020;
-      }
-      #canvas-editor {
-        width: 100%;
+      body { background-color: #202020; }
+      canvas { width: 100%; }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
       }
     </style>
   </body>

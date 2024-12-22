@@ -2,18 +2,18 @@ import { ColorSet } from './ColorSet';
 import { MapParser } from './MapParser';
 
 export class TileMap {
-  private element: HTMLCanvasElement | null = null;
   private context: CanvasRenderingContext2D | null = null;
 
-  private colorSet: ColorSet;
-  private pixelRatio: number;
+  protected element: HTMLCanvasElement | null = null;
+  protected pixelRatio: number;
+  protected colorSet: ColorSet;
 
   constructor(colorSet: ColorSet, pixelRatio: number, el?: HTMLCanvasElement | string, map?: MapStr | number[][]) {
     this.colorSet = colorSet;
     this.pixelRatio = pixelRatio;
     if (el) this.setElement(el);
     if (typeof map === 'string') this.readMap(map);
-    if (Array.isArray(map)) this.setSize(map[0].length, map.length).setMap(map);
+    if (Array.isArray(map)) this.setMap(map);
   }
 
   get width() { return (this.element?.width ?? 0) / this.pixelRatio; }
@@ -39,8 +39,12 @@ export class TileMap {
 
   setMap(map: number[][]) {
     if (!this.context) throw new Error('No context set');
+    this.setSize(map[0].length, map.length);
 
-    map.forEach((row, y) => row.forEach((colorIndex, x) => { this.setColor(x, y, colorIndex); }));
+    map.forEach((row, y) => row.forEach((colorIndex, x) => {
+      this.context!.fillStyle = this.colorSet.get(colorIndex);
+      this.context!.fillRect(x * this.pixelRatio, y * this.pixelRatio, this.pixelRatio, this.pixelRatio);
+    }));
 
     return this;
   }
@@ -54,8 +58,10 @@ export class TileMap {
   readMap(mapStr: MapStr) {
     if (!this.context) throw new Error('No context set');
 
-    const { height, width, map } = MapParser.toMap(mapStr);
-    this.setSize(width, height).setMap(map);
+    const { map, colorSet } = MapParser.toMap(mapStr);
+    if (colorSet) this.colorSet = colorSet;
+    console.log('readMap', mapStr, map);
+    this.setMap(map);
 
     return this;
   }
