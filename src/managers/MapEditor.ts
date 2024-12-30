@@ -12,6 +12,9 @@ export class MapEditor extends TileMap {
     if (width < 0 || height < 0) throw new Error('Width and height must be positive');
     super(colorSet, pixelRatio, el);
     this.setMap(Array.from({ length: height }, () => Array.from({ length: width }, () => 0)));
+    this.onClick = this.onClick.bind(this);
+    this._activateMouseMoveClick = this._activateMouseMoveClick.bind(this);
+    this._deactivateMouseMoveClick = this._deactivateMouseMoveClick.bind(this);
   }
 
   hideColorSet() {
@@ -42,7 +45,6 @@ export class MapEditor extends TileMap {
 
   setMap(map: number[][]) {
     this.map = map;
-    console.log('SetColorMap', this.getSetColorMap(map[0].length));
     super.setMap([
       ...(this.isColorSetDisplayed ? this.getSetColorMap(map[0].length) : []),
       ...map,
@@ -52,22 +54,33 @@ export class MapEditor extends TileMap {
 
   saveMap(withColorSet = false) {
     const map = MapParser.toString(this.map, withColorSet ? this.colorSet : undefined);
-    console.log('saveMap', this.map, map);
     return map;
   }
 
   setColor(x: number, y: number, color = this.selectedColor) {
     const colorMapHeight = this.isColorSetDisplayed ? this.getSetColorMap().length : 0;
+    if (this.map[y][x] === color) return this;
     this.map[y][x] = color;
     super.setColor(x, y + colorMapHeight, this.map[y][x]);
     return this;
   }
 
   handleCanvasClick() {
-    this.element?.addEventListener('click', this.onClick.bind(this));
-
+    this.element?.addEventListener('click', this.onClick);
+    this.element?.addEventListener('mousedown', this._activateMouseMoveClick);
+    this.element?.addEventListener('mouseup', this._deactivateMouseMoveClick);
     return this;
   }
+
+  removeCanvasClick() {
+    this.element?.removeEventListener('click', this.onClick);
+    this.element?.removeEventListener('mousedown', this._activateMouseMoveClick);
+    this.element?.removeEventListener('mouseup', this._deactivateMouseMoveClick);
+    return this;
+  }
+
+  private _activateMouseMoveClick() { this.element?.addEventListener('mousemove', this.onClick); return this; }
+  private _deactivateMouseMoveClick() { this.element?.removeEventListener('mousemove', this.onClick); return this; }
 
   onClick(event: MouseEvent) {
     const rect = (this.element)!.getBoundingClientRect();

@@ -24,6 +24,7 @@ export class TileMap {
     if (!this.element) throw new Error(`Element '${el}' not found`);
 
     this.context = this.element.getContext('2d');
+    this.context!.globalCompositeOperation = 'source-in';
 
     return this;
   }
@@ -60,7 +61,6 @@ export class TileMap {
 
     const { map, colorSet } = MapParser.toMap(mapStr);
     if (colorSet) this.colorSet = colorSet;
-    console.log('readMap', mapStr, map);
     this.setMap(map);
 
     return this;
