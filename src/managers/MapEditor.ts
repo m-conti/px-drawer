@@ -68,29 +68,43 @@ export class MapEditor extends TileMap {
   handleCanvasClick() {
     this.element?.addEventListener('click', this.onClick);
     this.element?.addEventListener('mousedown', this._activateMouseMoveClick);
+    this.element?.addEventListener('touchstart', this._activateMouseMoveClick);
     this.element?.addEventListener('mouseup', this._deactivateMouseMoveClick);
+    this.element?.addEventListener('touchend', this._deactivateMouseMoveClick);
     return this;
   }
 
   removeCanvasClick() {
     this.element?.removeEventListener('click', this.onClick);
     this.element?.removeEventListener('mousedown', this._activateMouseMoveClick);
+    this.element?.removeEventListener('touchstart', this._activateMouseMoveClick);
     this.element?.removeEventListener('mouseup', this._deactivateMouseMoveClick);
+    this.element?.removeEventListener('touchend', this._deactivateMouseMoveClick);
     return this;
   }
 
-  private _activateMouseMoveClick() { this.element?.addEventListener('mousemove', this.onClick); return this; }
+  private _activateMouseMoveClick() {
+    this.element?.addEventListener('mousemove', this.onClick);
+    this.element?.addEventListener('touchmove', this.onClick);
+    return this;
+  }
   private _deactivateMouseMoveClick() { this.element?.removeEventListener('mousemove', this.onClick); return this; }
 
-  onClick(event: MouseEvent) {
+  onClick(event: MouseEvent | TouchEvent) {
     const rect = (this.element)!.getBoundingClientRect();
-    const x = Math.floor(((event.clientX - rect.left) / rect.width) * this.width);
-    const y = Math.floor(((event.clientY - rect.top) / rect.height) * this.height);
+    const clientX = (event as MouseEvent).clientX ?? (event as TouchEvent).touches[0].clientX;
+    const clientY = (event as MouseEvent).clientY ?? (event as TouchEvent).touches[0].clientY;
+
+    const x = Math.floor(((clientX - rect.left) / rect.width) * this.width);
+    const y = Math.floor(((clientY - rect.top) / rect.height) * this.height);
     const colorSetY = this.getSetColorMap().length;
     if (y < colorSetY)
       this.setSelectedColor(this.getSetColorMap()[y][x]);
     else
       this.setColor(x, y - colorSetY);
+
+    event.stopImmediatePropagation();
+    event.preventDefault();
 
     return this;
   }
