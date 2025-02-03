@@ -67,19 +67,23 @@ export class MapEditor extends TileMap {
 
   handleCanvasClick() {
     this.element?.addEventListener('click', this.onClick);
+    this.element?.addEventListener('touchend', this.onClick);
     this.element?.addEventListener('mousedown', this._activateMouseMoveClick);
     this.element?.addEventListener('touchstart', this._activateMouseMoveClick);
     this.element?.addEventListener('mouseup', this._deactivateMouseMoveClick);
     this.element?.addEventListener('touchend', this._deactivateMouseMoveClick);
+    this.element?.addEventListener('cancel', this._deactivateMouseMoveClick);
     return this;
   }
 
   removeCanvasClick() {
     this.element?.removeEventListener('click', this.onClick);
+    this.element?.removeEventListener('touchend', this.onClick);
     this.element?.removeEventListener('mousedown', this._activateMouseMoveClick);
     this.element?.removeEventListener('touchstart', this._activateMouseMoveClick);
     this.element?.removeEventListener('mouseup', this._deactivateMouseMoveClick);
     this.element?.removeEventListener('touchend', this._deactivateMouseMoveClick);
+    this.element?.removeEventListener('cancel', this._deactivateMouseMoveClick);
     return this;
   }
 
@@ -88,7 +92,11 @@ export class MapEditor extends TileMap {
     this.element?.addEventListener('touchmove', this.onClick);
     return this;
   }
-  private _deactivateMouseMoveClick() { this.element?.removeEventListener('mousemove', this.onClick); return this; }
+  private _deactivateMouseMoveClick() {
+    this.element?.removeEventListener('mousemove', this.onClick);
+    this.element?.removeEventListener('touchmove', this.onClick);
+    return this;
+  }
 
   onClick(event: MouseEvent | TouchEvent) {
     const rect = (this.element)!.getBoundingClientRect();
