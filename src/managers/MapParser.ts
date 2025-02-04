@@ -10,7 +10,6 @@ const toString = (map: number[][], colorSet?: ColorSet) => {
 };
 
 const toMap = (mapStr: MapStr) => {
-  // TODO implement map parser with colorSet
   const map = mapStr.split('|');
   const [ colors, size, data ] = map.length === 3 ? map : [ undefined, map[0], map[1] ];
   const [ width, height ] = size.split('x').map(Number);

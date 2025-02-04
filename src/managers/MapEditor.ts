@@ -100,8 +100,8 @@ export class MapEditor extends TileMap {
 
   onClick(event: MouseEvent | TouchEvent) {
     const rect = (this.element)!.getBoundingClientRect();
-    const clientX = (event as MouseEvent).clientX ?? (event as TouchEvent).touches[0].clientX;
-    const clientY = (event as MouseEvent).clientY ?? (event as TouchEvent).touches[0].clientY;
+    const clientX = event instanceof MouseEvent ? event.clientX : event.touches[0].clientX;
+    const clientY = event instanceof MouseEvent ? event.clientY : event.touches[0].clientY;
 
     const x = Math.floor(((clientX - rect.left) / rect.width) * this.width);
     const y = Math.floor(((clientY - rect.top) / rect.height) * this.height);
