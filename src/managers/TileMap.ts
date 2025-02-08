@@ -38,7 +38,7 @@ export class TileMap {
     return this;
   }
 
-  setMap(map: number[][]) {
+  protected setMap(map: number[][]) {
     if (!this.context) throw new Error('No context set');
     this.setSize(map[0].length, map.length);
 
@@ -51,8 +51,15 @@ export class TileMap {
   }
 
   setColor(x: number, y: number, color: number) {
-    this.context!.fillStyle = this.colorSet.get(color);
-    this.context!.fillRect(x * this.pixelRatio, y * this.pixelRatio, this.pixelRatio, this.pixelRatio);
+    const colorStr = this.colorSet.get(color);
+    const alpha = Number(`0x${colorStr.replace(/#[0-9A-F]{6}/, '') || 'FF'}`) / 0xFF;
+    const realX = x * this.pixelRatio;
+    const realY = y * this.pixelRatio;
+    this.context!.fillStyle = colorStr;
+    this.context!.globalAlpha = alpha;
+
+    this.context!.clearRect(realX, realY, this.pixelRatio, this.pixelRatio);
+    this.context!.fillRect(realX, realY, this.pixelRatio, this.pixelRatio);
     return this;
   }
 

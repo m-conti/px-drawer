@@ -8,8 +8,8 @@ export class MapEditor extends TileMap {
   private map: number[][] = [[]];
   private selectedColor = 0;
 
-  constructor(colorSet: ColorSet, pixelRatio: number, el?: HTMLCanvasElement | string, width: number = 0, height: number = width) {
-    if (width < 0 || height < 0) throw new Error('Width and height must be positive');
+  constructor(colorSet: ColorSet, pixelRatio: number, el?: HTMLCanvasElement | string, width: number = 4, height: number = width) {
+    if (width <= 0 || height <= 0) throw new Error('Width and height must be positive');
     super(colorSet, pixelRatio, el);
     this.setMap(Array.from({ length: height }, () => Array.from({ length: width }, () => 0)));
     this.onClick = this.onClick.bind(this);
@@ -39,11 +39,11 @@ export class MapEditor extends TileMap {
     return this;
   }
 
-  getSetColorMap(width: number = this.width) {
+  private getSetColorMap(width: number = this.width) {
     return chunk(this.colorSet.getColors().map((_, index) => index), width, 0);
   }
 
-  setMap(map: number[][]) {
+  protected setMap(map: number[][]) {
     this.map = map;
     super.setMap([
       ...(this.isColorSetDisplayed ? this.getSetColorMap(map[0].length) : []),

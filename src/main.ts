@@ -1,1 +1,1 @@
-export { PixelManager } from './managers';
+export { PixelDrawer as default } from './managers';

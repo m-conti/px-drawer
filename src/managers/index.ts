@@ -1,2 +1,2 @@
 
-export { PixelManager } from './PixelManager';
+export { PixelManager as PixelDrawer } from './PixelManager';

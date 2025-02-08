@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PixelDrawer</title>
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas-editor"></canvas>
+      <button onclick="saveTileMap()">SAVE</button>
+      <canvas id="canvas-display"></canvas>
+      <canvas id="canvas-display-with-saved-color"></canvas>
+    </div>
+    <script src="./dist/pixel-drawer.umd.js"></script>
+    <script>
+const mapEditor = PixelDrawer.global
+  .addColor('#FFFFFF')
+  .addColor('#FFFFFF00')
+  .addColor('#000000')
+  .addColor('#FF0000')
+  .addColor('#00FF00')
+  .addColor('#0000FF')
+  .addColor('#FFFF00')
+  .addColor('#00FFFF')
+  .addColor('#FF00FF')
+  .addColor('#FFA500')
+  .addColor('#800080')
+  .addColor('#008080')
+  .addColor('#800000')
+  .addColor('#008000')
+  .addColor('#000080')
+  .addColor('#808000')
+  .addColor('#800080')
+  .addColor('#008080')
+  .addColor('#808080')
+  .addColor('#C0C0C0')
+  .createMapEditor('#canvas-editor', 16, 12)
+  .handleCanvasClick();
+
+const map = PixelDrawer.global.createTileMap('#canvas-display');
+globalThis.saveTileMap = () => {
+  console.log('saveTileMap', mapEditor.saveMap());
+  map.readMap(mapEditor.saveMap());
+};
+    </script>
+    <style>
+body { background-color: #202020; }
+canvas { width: 100%; }
+
+#canvas-display { width: 80%; }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+    </style>
+  </body>
+</html>

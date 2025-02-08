@@ -1,9 +1,10 @@
-import { PixelManager } from '@/managers';
+import { PixelDrawer } from '@/managers';
 
 
-const mapEditor = PixelManager.global
+const mapEditor = PixelDrawer.global
   .addColor('#FFFFFF')
   .addColor('#FFFFFF00')
+  .addColor('#FFFFFF66')
   .addColor('#000000')
   .addColor('#FF0000')
   .addColor('#00FF00')
@@ -25,7 +26,7 @@ const mapEditor = PixelManager.global
   .createMapEditor('#canvas-editor', 16, 12)
   .handleCanvasClick();
 
-const map = PixelManager.global.createTileMap('#canvas-display');
+const map = PixelDrawer.global.createTileMap('#canvas-display');
 (globalThis as any).saveTileMap = () => {
   console.log('saveTileMap', mapEditor.saveMap());
   map.readMap(mapEditor.saveMap());
