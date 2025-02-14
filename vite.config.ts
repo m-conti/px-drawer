@@ -12,7 +12,7 @@ export default defineConfig({
     lib: {
       entry: 'src/main.ts',
       name: 'PixelDrawer',
-      fileName: (format) => `pixel-drawer.${format}.js`,
+      fileName: (format) => `px-drawer.${format}.js`,
       formats: [ 'umd', 'es' ],
     },
   },

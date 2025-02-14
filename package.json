@@ -1,9 +1,9 @@
 {
-  "name": "pixel-drawer",
-  "main": "dist/pixel-drawer.umd.js",
-  "module": "dist/pixel-drawer.es.js",
+  "name": "px-drawer",
+  "main": "dist/px-drawer.umd.js",
+  "module": "dist/px-drawer.es.js",
   "files": ["dist"],
-  "private": true,
+  "private": false,
   "author": {
     "name": "m-conti"
   },

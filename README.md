@@ -1,11 +1,11 @@
-# Pixel-Drawer
+# px-drawer
 
 <!-- TO DO ADD REAL LINKS -->
-![npm](https://img.shields.io/npm/v/pixel-drawer)
-![license](https://img.shields.io/github/license/m-conti/pixel-drawer)
-![bundle size](https://img.shields.io/bundlephobia/min/pixel-drawer)
+![npm](https://img.shields.io/npm/v/px-drawer)
+![license](https://img.shields.io/github/license/m-conti/px-drawer)
+![bundle size](https://img.shields.io/bundlephobia/min/px-drawer)
 
-Pixel-Drawer is a simple, lightweight library that provides a drawable canvas, allowing users to draw, save their drawings, and display them on other canvases.
+px-drawer is a simple, lightweight library that provides a drawable canvas, allowing users to draw, save their drawings, and display them on other canvases.
 
 ## 🚀 Features
 
@@ -18,18 +18,18 @@ Pixel-Drawer is a simple, lightweight library that provides a drawable canvas, a
 
 ### Using npm
 ```sh
-npm install pixel-drawer
+npm install px-drawer
 ```
 
 ### Using Yarn
 ```sh
-yarn add pixel-drawer
+yarn add px-drawer
 ```
 
 ## 🔌 Usage
 
 ### Browser (via CDN)
-To use Pixel-Drawer in the browser via CDN, include the following script in your HTML file:
+To use px-drawer in the browser via CDN, include the following script in your HTML file:
 
 ```html
 <!doctype html>
@@ -45,7 +45,7 @@ To use Pixel-Drawer in the browser via CDN, include the following script in your
       <button onclick="saveTileMap()">SAVE</button>
       <canvas id="canvas-display"></canvas>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/pixel-drawer@latest/dist/pixel-drawer.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/px-drawer@latest/dist/px-drawer.umd.js"></script>
     <script>
       const mapEditor = PixelDrawer.global
         .addColor('#FFFFFF')
@@ -82,16 +82,16 @@ To use Pixel-Drawer in the browser via CDN, include the following script in your
 ```
 
 ### Using npm
-To use Pixel-Drawer in a project with npm, follow these steps:
+To use px-drawer in a project with npm, follow these steps:
 
 1. Install the package:
 ```sh
-npm install pixel-drawer
+npm install px-drawer
 ```
 
 2. Import and use it in your JavaScript file:
 ```js
-import PixelDrawer from 'pixel-drawer';
+import PixelDrawer from 'px-drawer';
 
 const mapEditor = PixelDrawer.global
   .addColor('#FFFFFF')
@@ -196,7 +196,7 @@ Disables handling of canvas click events for drawing.
 
 ### Basic Example
 
-Here is a basic example of how to use Pixel-Drawer to create a simple drawing application:
+Here is a basic example of how to use px-drawer to create a simple drawing application:
 
 ```html
 <!doctype html>
@@ -212,7 +212,7 @@ Here is a basic example of how to use Pixel-Drawer to create a simple drawing ap
       <button onclick="saveDrawing()">Save Drawing</button>
       <canvas id="canvas-display"></canvas>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/pixel-drawer@latest/dist/pixel-drawer.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/px-drawer@latest/dist/px-drawer.umd.js"></script>
     <script>
       const editor = PixelDrawer.global
         .addColor('#FFFFFF')
@@ -245,8 +245,8 @@ This example sets up a basic HTML page with two canvases: one for drawing and on
 ## 🛠 Development
 
 ```sh
-git clone https://github.com/your-username/pixel-drawer.git
-cd pixel-drawer
+git clone https://github.com/m-conti/px-drawer.git
+cd px-drawer
 npm install
 npm run dev
 ```
