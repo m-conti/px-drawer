@@ -1,6 +1,5 @@
 # px-drawer
 
-<!-- TO DO ADD REAL LINKS -->
 ![npm](https://img.shields.io/npm/v/px-drawer)
 ![license](https://img.shields.io/github/license/m-conti/px-drawer)
 ![bundle size](https://img.shields.io/bundlephobia/min/px-drawer)

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PixelDrawer Example</title>
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas-editor"></canvas>
+      <button onclick="saveDrawing()">Save Drawing</button>
+      <canvas id="canvas-display"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/px-drawer@latest/dist/px-drawer.umd.js"></script>
+    <script>
+      const editor = PixelDrawer.global
+        .addColor('#FFFFFF')
+        .addColor('#000000')
+        .addColor('#FF0000')
+        .addColor('#00FF00')
+        .addColor('#0000FF')
+        .createMapEditor('#canvas-editor', 16, 16)
+        .handleCanvasClick();
+
+      const display = PixelDrawer.global.createTileMap('#canvas-display');
+
+      function saveDrawing() {
+        const drawing = editor.saveMap();
+        console.log('Saved Drawing:', drawing);
+        display.readMap(drawing);
+      }
+    </script>
+    <style>
+      body { background-color: #f0f0f0; }
+      canvas { border: 1px solid #000; }
+      .container { display: flex; flex-direction: column; gap: 1rem; }
+    </style>
+  </body>
+</html>
