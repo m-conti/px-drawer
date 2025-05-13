@@ -15,11 +15,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "git:version": "git commit package.json -m 'version' && git tag -a v$(jq -r .version package.json) -m 'version' && git push --tags",
-    "deploy:empty": "pnpm build && pnpm publish --access public",
-    "deploy:patch": "pnpm version patch && pnpm deploy:empty",
-    "deploy:minor": "pnpm version minor && pnpm deploy:empty",
-    "deploy:major": "pnpm version major && pnpm deploy:empty",
+    "deploy:empty": "pnpm publish --access public",
+    "deploy:patch": "pnpm build && pnpm version patch && pnpm deploy:empty",
+    "deploy:minor": "pnpm build && pnpm version minor && pnpm deploy:empty",
+    "deploy:major": "pnpm build && pnpm version major && pnpm deploy:empty",
     "preview": "vite preview"
   },
   "devDependencies": {
