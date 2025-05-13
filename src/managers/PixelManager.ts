@@ -25,7 +25,7 @@ export class PixelManager {
   setColors(data: ColorStr[]) { this.colorSet.set(data); return this; }
 
   // maps
-  createTileMap(el?: HTMLCanvasElement | string, map?: MapStr) { return new TileMap(this.colorSet, this.pixelRatio, el, map); }
-  createMapEditor(el?: HTMLCanvasElement | string, width?: number, height?: number) { return new MapEditor(this.colorSet, this.pixelRatio, el, width, height); }
+  createTileMap(el?: HTMLDivElement | string, map?: MapStr) { return new TileMap(this.colorSet, this.pixelRatio, el, map); }
+  createMapEditor(el?: HTMLDivElement | string, width?: number, height?: number) { return new MapEditor(this.colorSet, this.pixelRatio, el, width, height); }
 
 }

@@ -8,16 +8,16 @@
   </head>
   <body>
     <div class="container">
-      <canvas id="canvas-editor"></canvas>
+      <div id="canvas-editor" class="canvas-container"></div>
       <button onclick="saveTileMap()">SAVE</button>
-      <canvas id="canvas-display"></canvas>
-      <canvas id="canvas-display-with-saved-color"></canvas>
+      <div id="canvas-display" class="canvas-container"></div>
+      <div id="canvas-display-with-saved-color" class="canvas-container"></div>
     </div>
     <script type="module" src="./src/main.ts"></script>
     <script type="module" src="./tests/test.ts"></script>
     <style>
       body { background-color: #202020; }
-      canvas { width: 100%; }
+      .canvas-container { width: 100%; }
 
       #canvas-display { width: 80%; }
 

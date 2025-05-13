@@ -24,7 +24,8 @@ const mapEditor = PixelDrawer.global
   .addColor('#808080')
   .addColor('#C0C0C0')
   .createMapEditor('#canvas-editor', 16, 12)
-  .handleCanvasClick();
+  .handleCanvasClick()
+  .withCursor();
 
 const map = PixelDrawer.global.createTileMap('#canvas-display');
 (globalThis as any).saveTileMap = () => {

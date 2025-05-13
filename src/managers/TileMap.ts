@@ -3,12 +3,16 @@ import { MapParser } from './MapParser';
 
 export class TileMap {
   private context: CanvasRenderingContext2D | null = null;
+  private _pixelRatio!: number;
 
-  protected element: HTMLCanvasElement | null = null;
-  protected pixelRatio: number;
+  protected element: HTMLDivElement | null = null;
+  protected canvas: HTMLCanvasElement | null = null;
   protected colorSet: ColorSet;
 
-  constructor(colorSet: ColorSet, pixelRatio: number, el?: HTMLCanvasElement | string, map?: MapStr | number[][]) {
+  public get pixelRatio() { return this._pixelRatio; }
+  protected set pixelRatio(value: number) { this._pixelRatio = value; }
+
+  constructor(colorSet: ColorSet, pixelRatio: number, el?: HTMLDivElement | string, map?: MapStr | number[][]) {
     this.colorSet = colorSet;
     this.pixelRatio = pixelRatio;
     if (el) this.setElement(el);
@@ -16,24 +20,42 @@ export class TileMap {
     if (Array.isArray(map)) this.setMap(map);
   }
 
-  get width() { return (this.element?.width ?? 0) / this.pixelRatio; }
-  get height() { return (this.element?.height ?? 0) / this.pixelRatio; }
+  get width() { return (this.canvas?.width ?? 0) / this.pixelRatio; }
+  get height() { return (this.canvas?.height ?? 0) / this.pixelRatio; }
 
-  setElement(el: HTMLCanvasElement | string) {
+  setElement(el: HTMLDivElement | string) {
     this.element = typeof el === 'string' ? document.querySelector(el) : el;
     if (!this.element) throw new Error(`Element '${el}' not found`);
 
-    this.context = this.element.getContext('2d');
+    this.canvas = document.createElement('canvas');
+    this.canvas.style.width = '100%';
+    this.canvas.style.height = '100%';
+    this.canvas.style.imageRendering = 'pixelated';
+    this.canvas.style.imageRendering = '-moz-crisp-edges';
+    this.canvas.style.imageRendering = '-o-crisp-edges';
+    this.canvas.style.imageRendering = 'crisp-edges';
+    this.canvas.style.imageRendering = 'optimize-contrast';
+    this.canvas.style.imageRendering = 'pixelated';
+
+    this.element.appendChild(this.canvas);
+    this.element.style.position = 'relative';
+
+    this.context = this.canvas.getContext('2d');
     this.context!.globalCompositeOperation = 'source-in';
 
     return this;
   }
 
-  setSize(width: number, height: number) {
+  public getElement() {
     if (!this.element) throw new Error('No element set');
+    return this.element;
+  }
 
-    this.element.width = width * this.pixelRatio;
-    this.element.height = height * this.pixelRatio;
+  setSize(width: number, height: number) {
+    if (!this.canvas) throw new Error('No element set');
+
+    this.canvas.width = width * this.pixelRatio;
+    this.canvas.height = height * this.pixelRatio;
 
     return this;
   }

@@ -40,9 +40,9 @@ To use px-drawer in the browser via CDN, include the following script in your HT
   </head>
   <body>
     <div class="container">
-      <canvas id="canvas-editor"></canvas>
+      <div id="canvas-editor" class="canvas-container"></div>
       <button onclick="saveTileMap()">SAVE</button>
-      <canvas id="canvas-display"></canvas>
+      <div id="canvas-display" class="canvas-container"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/px-drawer@latest/dist/px-drawer.umd.js"></script>
     <script>
@@ -53,7 +53,8 @@ To use px-drawer in the browser via CDN, include the following script in your HT
         .addColor('#00FF00')
         .addColor('#0000FF')
         .createMapEditor('#canvas-editor', 16, 12)
-        .handleCanvasClick();
+        .handleCanvasClick()
+        .withCursor();
 
       const map = PixelDrawer.global.createTileMap('#canvas-display');
       globalThis.saveTileMap = () => {
@@ -68,7 +69,7 @@ To use px-drawer in the browser via CDN, include the following script in your HT
     </script>
     <style>
       body { background-color: #202020; }
-      canvas { width: 100%; }
+      .canvas-container { width: 100%; }
       #canvas-display { width: 80%; }
       .container {
         display: flex;
@@ -99,7 +100,8 @@ const mapEditor = PixelDrawer.global
   .addColor('#00FF00')
   .addColor('#0000FF')
   .createMapEditor('#canvas-editor', 16, 12)
-  .handleCanvasClick();
+  .handleCanvasClick()
+  .withCursor();
 
 const map = PixelDrawer.global.createTileMap('#canvas-display');
 globalThis.saveTileMap = () => {
@@ -191,6 +193,12 @@ Enables handling of canvas click events for drawing.
 #### `removeCanvasClick(): MapEditor`
 Disables handling of canvas click events for drawing.
 
+#### `withCursor(): MapEditor`
+Enables cursor visibility (under mouse + selected color).
+
+#### `withoutCursor(): MapEditor`
+Disables cursor visibility (under mouse + selected color). 
+
 ## 📖 Examples
 
 ### Basic Example
@@ -207,9 +215,9 @@ Here is a basic example of how to use px-drawer to create a simple drawing appli
   </head>
   <body>
     <div class="container">
-      <canvas id="canvas-editor"></canvas>
+      <div id="canvas-editor" class="canvas-container"></div>
       <button onclick="saveDrawing()">Save Drawing</button>
-      <canvas id="canvas-display"></canvas>
+      <div id="canvas-display" class="canvas-container"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/px-drawer@latest/dist/px-drawer.umd.js"></script>
     <script>
@@ -232,7 +240,7 @@ Here is a basic example of how to use px-drawer to create a simple drawing appli
     </script>
     <style>
       body { background-color: #f0f0f0; }
-      canvas { border: 1px solid #000; }
+      .canvas-container { border: 1px solid #000; }
       .container { display: flex; flex-direction: column; gap: 1rem; }
     </style>
   </body>
