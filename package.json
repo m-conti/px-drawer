@@ -2,12 +2,14 @@
   "name": "px-drawer",
   "main": "dist/px-drawer.umd.js",
   "module": "dist/px-drawer.es.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "private": false,
   "author": {
     "name": "m-conti"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "license": "MIT",
   "scripts": {
